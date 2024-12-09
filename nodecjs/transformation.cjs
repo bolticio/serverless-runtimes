@@ -1,4 +1,6 @@
 // BOILER_CODE_START
+
+// Source: Github
 class EventNotSupportedException extends Error {
     constructor(message) {
         super(message);
