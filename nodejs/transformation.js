@@ -1,12 +1,9 @@
-// BOILER_CODE_START
-
-// Source: Github
 class EventNotSupportedException extends Error {
     constructor(message) {
         super(message);
         this.name = 'EventNotSupportedException';
         this.statusCode = 451;
-        this.message = message;
+        this.msg = message;
     }
 }
 
@@ -28,30 +25,27 @@ class RetryErrorException extends Error {
     }
 }
 
-function onTrack(obj) {
-    console.log("Handling track event.");
-    throw new EventNotSupportedException('anuj');
+function generateSha256Hash(input) {
+    return crypto.createHash('sha256').update(input).digest('hex');
 }
 
-function onPage(obj) {
-    console.log("Handling page event.");
-    throw new InvalidEventPayloadException('sahuuu');
-}
+export const handler = async (event, res) => {
+    try {
+        let obj = event.body;
+        
+        modifyObj(obj);
 
-function onIdentify(obj) {
-    console.log("Handling identify event.");
-}
-function onScreen(obj) {
-    console.log("Handling screen event.");
-}
 
-function onGroup(obj) {
-    console.log("Handling group event.");
-}
+        res.setHeader('Content-Type', 'application/json');
 
-function onAlias(obj) {
-    console.log("Handling alias event.");
-}
-// BOILER_CODE_END
-
-%code%
+        res.send(JSON.stringify(obj));
+    } catch (error) {
+        console.error(error);
+        if (error.statusCode)
+            res.statusCode = error.statusCode;
+        else
+            res.statusCode = 500;
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(error));
+    }
+};
