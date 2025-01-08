@@ -1,3 +1,5 @@
+// BOILER_CODE_START
+
 class EventNotSupportedException extends Error {
     constructor(message) {
         super(message);
@@ -49,3 +51,7 @@ export const handler = async (event, res) => {
         res.send(JSON.stringify(error));
     }
 };
+
+// BOILER_CODE_END
+
+%code%
