@@ -1,5 +1,7 @@
 // BOILER_CODE_START
 
+import crypto from 'crypto'
+
 class EventNotSupportedException extends Error {
     constructor(message) {
         super(message);
