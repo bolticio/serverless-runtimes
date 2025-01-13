@@ -1,7 +1,5 @@
-// Define your transformation function here:
-
 function modifyObj(obj) {
-    
+   // Define your transformation here
 }
 
 /* 
