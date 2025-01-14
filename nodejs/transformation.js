@@ -44,12 +44,13 @@ export const handler = async (event, res) => {
         res.send(JSON.stringify(obj));
     } catch (error) {
         console.error(error);
-        if (error.statusCode)
-            res.statusCode = error.statusCode;
-        else
-            res.statusCode = 500;
+        res.statusCode = error.statusCode || 500;
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(error));
+        if (res.statusCode === 500) {
+            res.send(JSON.stringify({ message: error.message }));
+        } else {
+            res.send(JSON.stringify(error));
+        }
     }
 };
 
