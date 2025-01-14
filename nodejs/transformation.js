@@ -39,7 +39,6 @@ export const handler = async (event, res) => {
         
         modifyObj(obj);
 
-
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify(obj));
