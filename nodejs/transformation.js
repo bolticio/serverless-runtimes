@@ -7,7 +7,7 @@ class EventNotSupportedException extends Error {
         super(message);
         this.name = 'EventNotSupportedException';
         this.statusCode = 451;
-        this.msg = message;
+        this.message = message;
     }
 }
 
@@ -16,7 +16,7 @@ class InvalidEventPayloadException extends Error {
         super(message);
         this.statusCode = 452;
         this.name = 'InvalidEventPayloadException';
-        this.msg = message;
+        this.message = message;
     }
 }
 
@@ -25,7 +25,7 @@ class RetryErrorException extends Error {
         super(message);
         this.statusCode = 453;
         this.name = 'RetryErrorException';
-        this.msg = message;
+        this.message = message;
     }
 }
 
