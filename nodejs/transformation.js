@@ -33,24 +33,18 @@ function generateSha256Hash(input) {
     return crypto.createHash('sha256').update(input).digest('hex');
 }
 
-export const handler = async (event, res) => {
+export const handler = async (req, res) => {
     try {
-        let obj = event.body;
-        
+        const obj = req.body;
         modifyObj(obj);
-
-        res.setHeader('Content-Type', 'application/json');
-
-        res.send(JSON.stringify(obj));
+        res.json(obj);
     } catch (error) {
         console.error(error);
-        res.statusCode = error.statusCode || 500;
-        res.setHeader('Content-Type', 'application/json');
-        if (res.statusCode === 500) {
-            res.send(JSON.stringify({ message: error.message }));
-        } else {
-            res.send(JSON.stringify(error));
-        }
+        const statusCode = error.statusCode || 500;
+        res.statusCode = statusCode;
+        res.send(JSON.stringify(statusCode === 500
+            ? { message: error.message }
+            : { name: error.name, message: error.message, statusCode }));
     }
 };
 
