@@ -37,11 +37,13 @@ export const handler = async (req, res) => {
     try {
         const obj = req.body;
         modifyObj(obj);
-        res.json(obj);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(obj));
     } catch (error) {
         console.error(error);
         const statusCode = error.statusCode || 500;
         res.statusCode = statusCode;
+        res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(statusCode === 500
             ? { message: error.message }
             : { name: error.name, message: error.message, statusCode }));
